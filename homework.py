@@ -11,8 +11,8 @@ class InfoMessage:
     """Информационное сообщение о тренировке."""
     def show_training_info(self):
         return ( f' Тип тренировки: {self.training_type};' 
-                 f'Длительность: {duration} ч.; Дистанция: {distance} км;'               
-                 f'Ср. скорость: {speed} км/ч; Потрачено ккал: {calories}.')
+                 f'Длительность: {self.duration} ч.; Дистанция: {self.distance} км;'               
+                 f'Ср. скорость: {self.speed} км/ч; Потрачено ккал: {self.calories}.')
 
 
 class Training:
