@@ -58,7 +58,7 @@ class Running(Training):
     cf_calorie1 = 18
     cf_calorie2 = 20
     def get_spent_calories(self) -> float:
-        calories = (cf_calorie1 * self.get_mean_speed() - cf_calorie2)  * self.weight / Training.M_IN_KM * self.duration
+        calories = (self.cf_calorie1 * self.get_mean_speed() - self.cf_calorie2)  * self.weight / Training.M_IN_KM * self.duration
         return calories
 
 
@@ -76,7 +76,7 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:  
-        calories = (cf_calorie3 * self.weight + ( self.speed ** cf_calorie4 // self.height ) * self.duration)
+        calories = (self.cf_calorie3 * self.weight + ( self.speed * self.cf_calorie4 // self.height ) * self.duration)
 
 class Swimming(Training):
     """Тренировка: плавание."""
@@ -99,7 +99,7 @@ class Swimming(Training):
         return speed
 
     def get_spent_calories(self) -> float:
-        calories = (self.speed + cf_calorie5) * cf_calorie6 * self.weight
+        calories = (self.speed + self.cf_calorie5) * self.cf_calorie6 * self.weight
         return calories
 
     def get_distance(self) -> float:
@@ -135,3 +135,5 @@ if __name__ == "__main__":
         training = read_package(workout_type, data)
         main(training)
 
+
+        
