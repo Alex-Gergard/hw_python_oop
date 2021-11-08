@@ -1,6 +1,3 @@
-from _typeshed import Self
-
-
 class InfoMessage:
     def __init__(self,training_type,duration,distance,speed,calories):
         self.training_type = training_type
@@ -131,9 +128,9 @@ if __name__ == "__main__":
         ('WLK', [9000, 1, 75, 180]),
     ]
 
-    for workout_type, data in packages:
-        training = read_package(workout_type, data)
-        main(training)
+for workout_type, data in packages:
+    training = read_package(workout_type, data)
+    main(training)
 
 
         
