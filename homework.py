@@ -112,7 +112,7 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
         calories = ((self.speed + self.cf_calorie5)
-                     * self.cf_calorie6 * self.weight)
+                    * self.cf_calorie6 * self.weight)
         return calories
 
     def get_distance(self) -> float:
