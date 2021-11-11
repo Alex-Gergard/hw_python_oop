@@ -106,12 +106,12 @@ class Swimming(Training):
         self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
-        speed = (self.lenght_pool * self.count_pool 
-                / Training.M_IN_KM / self.duration)
+        speed = (self.lenght_pool * self.count_pool
+                  / Training.M_IN_KM / self.duration)
         return speed
 
     def get_spent_calories(self) -> float:
-        calories = ((self.speed + self.cf_calorie5) 
+        calories = ((self.speed + self.cf_calorie5)
                      * self.cf_calorie6 * self.weight)
         return calories
 
@@ -129,7 +129,7 @@ def read_package(workout_type: str, data: list) -> Training:
         return Running(data)
     if workout_type == 'WLK':
         return SportsWalking(data)
-   
+
 
 def main(training: Training) -> None:
     """Главная функция."""
@@ -147,6 +147,3 @@ if __name__ == "__main__":
 for workout_type, data in packages:
     training = read_package(workout_type, data)
     main(training)
-
-
-
