@@ -1,9 +1,9 @@
 class InfoMessage:
-    def __init__(self , 
-                 training_type , 
-                 duration , 
-                 distance , 
-                 speed , 
+    def __init__(self ,
+                 training_type ,
+                 duration ,
+                 distance ,
+                 speed ,
                  calories):
         self.training_type = training_type
         self.duration = duration
@@ -62,9 +62,9 @@ class Running(Training):
     cf_calorie2 = 20
 
     def get_spent_calories(self) -> float:
-        calories = ((self.cf_calorie1 * 
-                     self.get_mean_speed() - self.cf_calorie2)
-                     * self.weight / Training.M_IN_KM * self.duration)
+        calories = ((self.cf_calorie1 
+                    * self.get_mean_speed() - self.cf_calorie2)
+                    * self.weight / Training.M_IN_KM * self.duration)
         return calories
 
 
@@ -79,27 +79,27 @@ class SportsWalking(Training):
                  duration: float,
                  weight: float,
                  height: float,
-                ) -> None:
+                 ) -> None:
         super.__init__(action, duration, weight)
         self.height = height
 
-
     def get_spent_calories(self) -> float:
+        return (self.cf_calorie3 * self.weight + ( self.speed 
+                * self.cf_calorie4 // self.height ) * self.duration)
 
-        return (self.cf_calorie3 * self.weight + ( self.speed * 
-                self.cf_calorie4 // self.height ) * self.duration)
 
-class Swimming(Training):
+class Swimming(Training) :
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
     cf_calorie5 = 1.1
     cf_calorie6 = 2
+
     def __init__(self,
-                action: int,
-                duration: float,
-                weight: float,
-                lenght_pool,
-                count_pool,
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 count_pool,
+                 lenght_pool,
                 ) -> None:
      super.__init__(action,duration,weight)
      self.lenght_pool = lenght_pool
