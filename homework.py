@@ -130,7 +130,7 @@ def read_package(workout_type: str, data: list) -> Training:
     if workout_type == 'WLK':
         return SportsWalking(data)
     else:
-        print('Неизвестный вид тренировки')      
+        print('Неизвестный вид тренировки')
 
 
 def main(training: Training) -> None:
