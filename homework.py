@@ -1,3 +1,6 @@
+from typing import Dict
+
+
 class InfoMessage:
     def __init__(self,
                  training_type,
@@ -129,12 +132,15 @@ def read_package(workout_type: str, data: list) -> Training:
         return Running(data)
     if workout_type == 'WLK':
         return SportsWalking(data)
+    else:
+        print('Неизвестный вид тренировки')
+            
 
 
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
-    info.get_message()
+    print(info.get_message())
 
 
 if __name__ == "__main__":
