@@ -121,14 +121,14 @@ class Swimming(Training):
         return distance
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, *data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type == 'SWM':
-        return Swimming(data)
+        return Swimming(data[0],data[1],data[2],data[3],data[4])
     if workout_type == 'RUN':
-        return Running(data)
+        return Running(data[0],data[1],data[2])
     if workout_type == 'WLK':
-        return SportsWalking(data)
+        return SportsWalking(data[0],data[1],data[2])
     else:
         print('Неизвестный вид тренировки')
 
@@ -138,20 +138,16 @@ def main(training: Training) -> None:
     info = training.show_training_info()
     print(info.get_message())
 
+packages = [
+        ('SWM', [720, 1, 80, 25, 40]),
+        ('RUN', [15000, 1, 75]),
+        ('WLK', [9000, 1, 75, 180]),
+    ]
 
 if __name__ == "__main__":
-    packages = [
-        ('SWM', [720, 1, 80, 25, 40]),
-        ('RUN', [15000, 1, 75]),
-        ('WLK', [9000, 1, 75, 180]),
-    ]
+    read_package()
 
-    packages = [
-        ('SWM', [720, 1, 80, 25, 40]),
-        ('RUN', [15000, 1, 75]),
-        ('WLK', [9000, 1, 75, 180]),
-    ]
-
+    
 for workout_type, data in packages:
     training = read_package(workout_type, data)
     main(training)
