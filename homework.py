@@ -119,6 +119,7 @@ class Swimming(Training):
         distance = self.action * Swimming.LEN_STEP / Training.M_IN_KM
         return distance
 
+
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type == 'SWM':
@@ -128,9 +129,9 @@ def read_package(workout_type: str, data: list) -> Training:
     elif workout_type == 'WLK':
         Training == SportsWalking(data[0], data[1], data[2], data[3])
     else:
-        print('Тренировка не опознана')  
+        print('Тренировка не опознана')
         training = Training(data)
-    return training 
+    return training
 
 
 def main(training: Training) -> None:
@@ -138,10 +139,11 @@ def main(training: Training) -> None:
     info = training.show_training_info()
     info.get_message()
 
+
 def get_start_message():
 
- if __name__ == '__main__':
-    packages = [
+    if __name__ == '__main__':
+        packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
@@ -150,3 +152,4 @@ def get_start_message():
     for workout_type, data in packages:
         training = read_package(workout_type, data)
         main(training)
+        
