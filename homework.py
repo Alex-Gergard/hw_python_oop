@@ -120,7 +120,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
 def main(training: Training):
     """Главная функция."""
-    print: '(InfoMessage.get_message(training.show_training_info()))'
+    return '(InfoMessage.get_message(training.show_training_info()))'
 
 
 if __name__ == '__main__':
