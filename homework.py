@@ -32,7 +32,7 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        return (self.action * self.LEN_STEP) / self.M_IN_KM
+        return (self.action * Training.LEN_STEP) / Training.M_IN_KM
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -57,7 +57,7 @@ coeff_calorie_2 = 20
 class Running(Training):
     """Тренировка: бег."""
 
-    def __init__(self, action, duration, weight) -> None:
+    def __init__(self,action, duration, weight) -> None:
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
@@ -90,17 +90,18 @@ class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP = 1.38
 
-    def __init__(self, action, duration, weight,
+    def __init__(self, duration, weight,
                  length_pool: float, count_pool) -> None:
-        super().__init__(action, duration, weight)
+        super().__init__(int(length_pool * count_pool / Swimming.LEN_STEP),
+                         duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
 
     def get_distance(self) -> float:
-        return (self.length_pool * self.count_pool) / self.M_IN_KM
+        return (self.length_pool * self.count_pool) / Swimming.M_IN_KM
 
     def get_mean_speed(self):
-        return (self.length_pool * self.count_pool / self.M_IN_KM
+        return (self.length_pool * self.count_pool / Swimming.M_IN_KM
                 / self.duration)
 
     def get_spent_calories(self) -> float:
@@ -108,19 +109,22 @@ class Swimming(Training):
                 * coeff_calorie_6 * self.weight)
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: list) :
     """Прочитать данные полученные от датчиков."""
     if workout_type == 'SWM':
-        return Swimming(*data)
+        return Swimming(data)
     if workout_type == 'RUN':
-        return Running(*data)
+        return Running(data)
     if workout_type == 'WLK':
-        return SportsWalking(*data)
+        return SportsWalking(data)
+    else:
+        print('Неизвестный вид тренировки')      
 
 
-def main(training: Training):
+def main(training: Training) -> None:
     """Главная функция."""
-    return '(InfoMessage.get_message(training.show_training_info()))'
+    info = training.show_training_info()
+    print(info.get_message())
 
 
 if __name__ == '__main__':
