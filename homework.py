@@ -5,7 +5,8 @@ class InfoMessage:
                  duration: float,
                  distance: float,
                  speed: float,
-                 calories: float) -> None:
+                 calories: float
+                 ) -> None:
         self.training_type = training_type
         self.duration = round(duration)
         self.distance = round(distance)
@@ -18,7 +19,7 @@ class InfoMessage:
                 f'Дистанция: {self.distance:.3f} км; '
                 f'Ср. скорость: {self.speed:.3f} км/ч; '
                 f'Потрачено ккал: {self.calories:.3f}.')
-
+        
 
 class Training:
     """Базовый класс тренировки."""
@@ -50,78 +51,77 @@ class Training:
         return Message1
 
 
-coeff_calorie_1 = 18
-coeff_calorie_2 = 20
-
-
 class Running(Training):
     """Тренировка: бег."""
 
-    def __init__(self,action, duration, weight) -> None:
+    coeff_calorie_1 = 18
+    coeff_calorie_2 = 20
+
+    def __init__(self,action: int, duration: float, weight: float) -> None:
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
-        return ((coeff_calorie_1 * self.get_mean_speed()
-                - coeff_calorie_2) * self.weight / self.M_IN_KM
+        return ((self.coeff_calorie_1 * self.get_mean_speed()
+                - self.coeff_calorie_2) * self.weight / self.M_IN_KM
                 * (self.duration * 60))
 
 
-coeff_calorie_3 = 0.035
-coeff_calorie_4 = 0.029
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    def __init__(self, action, duration, weight, height: float) -> None:
+
+    coeff_calorie_3 = 0.035
+    coeff_calorie_4 = 0.029
+
+    def __init__(self, action: int, duration: float, weight: float, height: float) -> None:
         super().__init__(action, duration, weight)
         self.height = height
 
     def get_spent_calories(self) -> float:
-        return (coeff_calorie_3 * self.weight
+        return (self.coeff_calorie_3 * self.weight
                 + (self.get_mean_speed()**2 // self.height)
-                * coeff_calorie_4 * self.weight) * (self.duration * 60)
+                * self.coeff_calorie_4 * self.weight) * (self.duration * 60)
 
-
-coeff_calorie_5 = 1.1
-coeff_calorie_6 = 2
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
+    coeff_calorie_5 = 1.1
+    coeff_calorie_6 = 2.0
     LEN_STEP = 1.38
 
-    def __init__(self, duration, weight,
-                 length_pool: float, count_pool) -> None:
-        super().__init__(int(length_pool * count_pool / Swimming.LEN_STEP),
+    def __init__(self, action: int, duration: float, weight: float,
+                 length_pool: int, count_pool: int) -> None:
+        super().__init__(action,
                          duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
 
     def get_distance(self) -> float:
-        return (self.length_pool * self.count_pool) / Swimming.M_IN_KM
+        return (self.length_pool * self.count_pool) / self.M_IN_KM
 
     def get_mean_speed(self):
-        return (self.length_pool * self.count_pool / Swimming.M_IN_KM
+        return (self.length_pool * self.count_pool / self.M_IN_KM
                 / self.duration)
 
     def get_spent_calories(self) -> float:
-        return ((self.get_mean_speed() + coeff_calorie_5)
-                * coeff_calorie_6 * self.weight)
+        return ((self.get_mean_speed() + self.coeff_calorie_5)
+                * self.coeff_calorie_6 * self.weight)
 
 
 def read_package(workout_type: str, data: list) :
     """Прочитать данные полученные от датчиков."""
-    if workout_type == 'SWM':
-        return Swimming(data)
-    if workout_type == 'RUN':
-        return Running(data)
-    if workout_type == 'WLK':
-        return SportsWalking(data)
-    else:
-        print('Неизвестный вид тренировки')      
+    read: dict = {
+        'RUN': Running,
+        'WLK': SportsWalking,
+        'SWM': Swimming,
+    }
+    readdat = read[workout_type](*data)
+    return readdat    
 
 
-def main(training: Training) -> None:
+def main(training) -> None:
     """Главная функция."""
     info = training.show_training_info()
     print(info.get_message())
