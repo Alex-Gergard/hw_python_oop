@@ -57,7 +57,7 @@ class Running(Training):
     coeff_calorie_1 = 18
     coeff_calorie_2 = 20
 
-    def __init__(self,action: int, duration: float, weight: float) -> None:
+    def __init__(action: int, duration: float, weight: float) -> None:
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
@@ -116,7 +116,7 @@ def read_package(workout_type: str, data: list):
         'SWM': Swimming,
     }
     readdat = read[workout_type](*data)
-    return readdat    
+    return readdat
 
 
 def main(training) -> None:
