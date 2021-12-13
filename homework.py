@@ -8,10 +8,10 @@ class InfoMessage:
                  calories: float
                  ) -> None:
         self.training_type = training_type
-        self.duration = round(duration)
-        self.distance = round(distance)
-        self.speed = round(speed)
-        self.calories = round(calories)
+        self.duration = round(duration, 3)
+        self.distance = round(distance, 3)
+        self.speed = round(speed, 3)
+        self.calories = round(calories, 3)
 
     def get_message(self) -> str:
         return (f'Тип тренировки: {self.training_type}; '
@@ -87,20 +87,20 @@ class Swimming(Training):
     """Тренировка: плавание."""
     coeff_calorie_5 = 1.1
     coeff_calorie_6 = 2.0
-    LEN_STEP = 1.38
+    LEN_STEP: float = 1.38
 
     def __init__(self, action: int, duration: float, weight: float,
-                 length_pool: int, count_pool: int) -> None:
+                 length_pool: float, count_pool: int) -> None:
         super().__init__(action,
                          duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-    def get_distance(self) -> float:
-        return (self.length_pool * self.count_pool * self.LEN_STEP) / self.M_IN_KM
+    def get_distance(self) -> float:    
+        return (self.action * Swimming.LEN_STEP) / Training.M_IN_KM
 
     def get_mean_speed(self):
-        return (self.length_pool * self.count_pool / self.M_IN_KM
+        return (self.length_pool * self.count_pool / Training.M_IN_KM
                 / self.duration)
 
     def get_spent_calories(self) -> float:
