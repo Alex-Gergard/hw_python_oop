@@ -54,21 +54,21 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    coeff_calorie_1 = 18
-    coeff_calorie_2 = 20
-    vmin = 60
+    COEFF_CALORIE_1 = 18
+    COEFF_CALORIE_2 = 20
+    VMIN = 60
 
     def get_spent_calories(self) -> float:
-        return ((self.coeff_calorie_1 * self.get_mean_speed()
-                - self.coeff_calorie_2) * self.weight / self.M_IN_KM
-                * (self.duration * Running.vmin))
+        return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
+                - self.COEFF_CALORIE_2) * self.weight / self.M_IN_KM
+                * (self.duration * Running.VMIN))
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
 
-    coeff_calorie_3 = 0.035
-    coeff_calorie_4 = 0.029
+    COEFF_CALORIE_3 = 0.035
+    COEFF_CALORIE_4 = 0.029
 
     def __init__(self, action: int, duration: float,
                  weight: float, height: float) -> None:
@@ -76,9 +76,9 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        return (self.coeff_calorie_3 * self.weight
+        return (self.COEFF_CALORIE_3 * self.weight
                 + (self.get_mean_speed()**2 // self.height)
-                * self.coeff_calorie_4 * self.weight) * (self.duration
+                * self.COEFF_CALORIE_4 * self.weight) * (self.duration
                                                          * Running.vmin)
 
 
@@ -109,16 +109,15 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list):
     """Прочитать данные полученные от датчиков."""
-    read: dict[str, str] = {
+    read: dict[str, Training] = {
         'RUN': Running,
         'WLK': SportsWalking,
         'SWM': Swimming,
     }
     if read.get(workout_type) is None:
         return None
-    else:
-        readdat = read.get(workout_type)(*data)
-        return readdat
+    readdat = read.get(workout_type)(*data)
+    return readdat
 
 
 def main(training) -> None:
