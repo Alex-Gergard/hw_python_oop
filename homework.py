@@ -22,7 +22,7 @@ class Training:
 
 class Running(Training):
     """Running class."""   
-    def get_spent_calories(self):        
+    def get_spent_calories(self) ->float:        
         return ((18*self.get_mean_speed() - 20) 
                * self.weight) / (1000*self.duration*60)      
 
