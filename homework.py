@@ -18,13 +18,13 @@ class Training:
         return 0
     def show_training_info(self):
         """Information message object."""
-        return 0
+        return InfoMessage
 
 class Running(Training):
     """Running class."""   
-    def get_spent_calories(self) ->float:        
-        return ((18*self.get_mean_speed() - 20) 
-               * self.weight) / (1000*self.duration*60)      
+    def get_spent_calories(self) -> float:        
+        return (((18*self.get_mean_speed() - 20)         
+               * self.weight) / 1000)*self.duration*60     
 
 class SportsWalking(Training):
     """Sportswalking class."""
@@ -71,18 +71,16 @@ class InfoMessage:
                 Ср. скорость: {round(self.speed, 3)} км/ч; \
                 Потрачено ккал: {round(self.calories, 3)}.'
 
-def get_start_message():
-    """Output to terminal start message."""
-    print('Для эмуляции получения пакетов от блока датчиков')
-    print('введите параметры для опереденного типа тренировки:')
-    print('Бег: количество шагов, длительность, вес тела;')
-    print('Спортиная ходьба: количество шагов, длительность, вес тела, рост;')
-    print('Плавание: количество гребков, длительность, блина бассейна, количество бассейнов;')
-
 def read_package():
-    get_start_message()
-    
+    get_start_message()    
+    user_input = input()
+    user_param = user_input.split()
+    count_param = int(len(user_param))    
+    if count_param == 3:
+        return Running(user_param[0], user_param[1], user_param[2])
 
-run1 = Running(9000, 1, 75)
-print(f'{run1.get_spent_calories()}')
+
+  
+
+
 
