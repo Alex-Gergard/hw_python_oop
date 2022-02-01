@@ -32,8 +32,9 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
         self.height = height   
     def get_spent_calories(self):        
-        return (0.035*self.weight + (2*self.get_mean_speed() / self.height)
-               * 0.029 * self.weight) *60*self.duration
+        return (0.035*self.weight 
+               + ((self.get_mean_speed()**2) // self.height)
+               * 0.029 * self.weight) * 60 * self.duration
 
 class Swimming(Training):
     """Swimming class."""
@@ -82,5 +83,6 @@ def read_package():
     get_start_message()
     
 
-
+run1 = Running(9000, 1, 75)
+print(f'{run1.get_spent_calories()}')
 
